@@ -32,7 +32,13 @@ body {
     flex-wrap: wrap;
 }
 
-/* Left: Title & Source */
+/* Left Section: Title & Main Big Number */
+.banner-left-group {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
 .banner-title-area {
     display: flex;
     flex-direction: column;
@@ -48,7 +54,39 @@ body {
     font-size: 11px;
 }
 
-/* Middle: Key Regions Inline */
+/* Main Highlight & Status */
+.banner-main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.main-reading {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.value {
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.unit {
+    font-size: 11px;
+    color: #777;
+}
+
+.status {
+    padding: 6px 16px;
+    border-radius: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+/* Middle/Right: Key Regions Inline */
 .regions-inline {
     display: flex;
     gap: 8px;
@@ -82,42 +120,14 @@ body {
     font-size: 13px;
 }
 
-/* Right: Main Highlight & Status */
-.banner-main {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.main-reading {
-    display: flex;
-    align-items: baseline;
-    gap: 4px;
-}
-
-.value {
-    font-size: 28px;
-    font-weight: bold;
-    line-height: 1;
-}
-
-.unit {
-    font-size: 11px;
-    color: #777;
-}
-
-.status {
-    padding: 5px 14px;
-    border-radius: 15px;
-    color: white;
-    font-weight: bold;
-    font-size: 12px;
-}
-
+/* Far Right: Timestamp & Source */
 .meta-time {
     font-size: 10px;
     color: #888;
     text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 .source a {
@@ -145,16 +155,17 @@ body {
 .red-bg { background: #c62828; }
 
 /* Responsive adjustments for mobile screens */
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
     .banner-card {
         flex-direction: column;
         align-items: stretch;
         gap: 12px;
     }
-    .banner-main {
+    .banner-left-group {
         justify-content: space-between;
     }
     .meta-time {
+        align-items: flex-start;
         text-align: left;
     }
 }
@@ -163,13 +174,23 @@ body {
 <body>
 
 <div class="banner-card">
-    <!-- Title & Subtitle -->
-    <div class="banner-title-area">
-        <div class="title">Singapore Air Quality</div>
-        <div class="subtitle">Updated every 15 mins • <span class="source"><a href="https://www.haze.gov.sg/" target="_blank" rel="noopener noreferrer">haze.gov.sg</a></span></div>
+    <!-- Left Group: Title & Big Focus Number -->
+    <div class="banner-left-group">
+        <div class="banner-title-area">
+            <div class="title">Singapore Air Quality</div>
+            <div class="subtitle">Updated every 15 mins</div>
+        </div>
+
+        <div class="banner-main">
+            <div class="main-reading">
+                <div id="mainValue" class="value loading">--</div>
+                <div class="unit">µg/m³</div>
+            </div>
+            <div id="status" class="status green-bg">Loading...</div>
+        </div>
     </div>
 
-    <!-- Regional Pills (Central highlighted first) -->
+    <!-- Middle: Regional Pills (Central highlighted first) -->
     <div class="regions-inline">
         <div class="region-pill central">
             <span class="region-name">Central (AIS)</span>
@@ -193,14 +214,10 @@ body {
         </div>
     </div>
 
-    <!-- Main Value, Status & Timestamp -->
-    <div class="banner-main">
-        <div class="main-reading">
-            <div id="mainValue" class="value loading">--</div>
-            <div class="unit">µg/m³</div>
-        </div>
-        <div id="status" class="status green-bg">Loading...</div>
-        <div id="updated" class="meta-time">Loading...</div>
+    <!-- Right: Timestamp & Source -->
+    <div class="meta-time">
+        <div id="updated">Loading...</div>
+        <div class="source">Source: <a href="https://www.haze.gov.sg/" target="_blank" rel="noopener noreferrer">haze.gov.sg</a></div>
     </div>
 </div>
 
