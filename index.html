@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Singapore PM2.5</title>
+<title>Singapore PM2.5 Banner</title>
 <style>
 * {
     box-sizing: border-box;
@@ -11,124 +11,113 @@
 
 body {
     margin: 0;
-    padding: 15px;
+    padding: 10px;
     font-family: Arial, Helvetica, sans-serif;
     background: transparent;
     color: #444;
 }
 
-.container {
+.banner-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 12px 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
     width: 100%;
-    max-width: 500px;
+    max-width: 1200px;
     margin: auto;
+    flex-wrap: wrap;
 }
 
-.card {
-    background: #ffffff;
-    border-radius: 18px;
-    padding: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+/* Left: Title & Source */
+.banner-title-area {
+    display: flex;
+    flex-direction: column;
 }
 
 .title {
-    font-size: 22px;
+    font-size: 16px;
     font-weight: 700;
-    margin-bottom: 2px;
 }
 
 .subtitle {
     color: #777;
-    font-size: 13px;
-    margin-bottom: 20px;
+    font-size: 11px;
 }
 
-/* Mobile-First Vertical Stack Layout */
-.dashboard-layout {
+/* Middle: Key Regions Inline */
+.regions-inline {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-/* Main Display Section (Top for mobile/skinny view) */
-.main-display {
-    display: flex;
-    flex-direction: column;
+    gap: 8px;
     align-items: center;
-    background: #fafafa;
-    padding: 20px;
-    border-radius: 14px;
-    text-align: center;
+    flex-wrap: wrap;
+}
+
+.region-pill {
+    padding: 6px 12px;
+    border-radius: 8px;
+    background: #f5f5f5;
+    font-size: 13px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.region-pill.central {
+    background: #dbe442;
+    color: #000;
+    font-weight: bold;
+}
+
+.region-name {
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.region-val {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+/* Right: Main Highlight & Status */
+.banner-main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.main-reading {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
 }
 
 .value {
-    font-size: 65px;
+    font-size: 28px;
     font-weight: bold;
     line-height: 1;
 }
 
 .unit {
-    font-size: 14px;
+    font-size: 11px;
     color: #777;
-    margin-top: 4px;
-    margin-bottom: 12px;
 }
 
 .status {
-    display: inline-block;
-    padding: 8px 22px;
-    border-radius: 20px;
+    padding: 5px 14px;
+    border-radius: 15px;
     color: white;
     font-weight: bold;
-    font-size: 15px;
-}
-
-/* Regions Section */
-.regions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-.region {
-    padding: 12px 14px;
-    border-radius: 10px;
-    background: #f5f5f5;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* Make Central (AIS) span full width to stand out and ensure visibility */
-.region.central {
-    grid-column: span 2;
-    background: #dbe442;
-    color: #000000;
-    padding: 14px 16px;
-}
-
-.region-name {
-    font-weight: 600;
-    font-size: 14px;
-}
-
-.region-value {
-    font-weight: bold;
-    font-size: 16px;
-}
-
-.region.central .region-value {
-    font-size: 18px;
-}
-
-/* Meta Information */
-.meta-info {
-    text-align: center;
     font-size: 12px;
+}
+
+.meta-time {
+    font-size: 10px;
     color: #888;
-    margin-top: 5px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+    text-align: right;
 }
 
 .source a {
@@ -154,55 +143,64 @@ body {
 
 .red { color: #c62828; }
 .red-bg { background: #c62828; }
+
+/* Responsive adjustments for mobile screens */
+@media (max-width: 900px) {
+    .banner-card {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    .banner-main {
+        justify-content: space-between;
+    }
+    .meta-time {
+        text-align: left;
+    }
+}
 </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="card">
+<div class="banner-card">
+    <!-- Title & Subtitle -->
+    <div class="banner-title-area">
         <div class="title">Singapore Air Quality</div>
-        <div class="subtitle">PM2.5 Reading - Updated Every 15 Minutes</div>
+        <div class="subtitle">Updated every 15 mins • <span class="source"><a href="https://www.haze.gov.sg/" target="_blank" rel="noopener noreferrer">haze.gov.sg</a></span></div>
+    </div>
 
-        <div class="dashboard-layout">
-            <!-- Main Display: Key Number & Status -->
-            <div class="main-display">
-                <div id="mainValue" class="value loading">--</div>
-                <div class="unit">µg/m³</div>
-                <div id="status" class="status green-bg">Loading...</div>
-            </div>
-
-            <!-- Regions Grid: Central (AIS) is emphasized and spans full width -->
-            <div class="regions">
-                <div class="region central">
-                    <span class="region-name">Central (AIS)</span>
-                    <span id="central" class="region-value">--</span>
-                </div>
-                <div class="region">
-                    <span class="region-name">North</span>
-                    <span id="north" class="region-value">--</span>
-                </div>
-                <div class="region">
-                    <span class="region-name">South</span>
-                    <span id="south" class="region-value">--</span>
-                </div>
-                <div class="region">
-                    <span class="region-name">East</span>
-                    <span id="east" class="region-value">--</span>
-                </div>
-                <div class="region">
-                    <span class="region-name">West</span>
-                    <span id="west" class="region-value">--</span>
-                </div>
-            </div>
-
-            <!-- Metadata -->
-            <div class="meta-info">
-                <div id="updated">Loading latest data...</div>
-                <div class="source">
-                    Source: <a href="https://www.haze.gov.sg/" target="_blank" rel="noopener noreferrer">haze.gov.sg</a>
-                </div>
-            </div>
+    <!-- Regional Pills (Central highlighted first) -->
+    <div class="regions-inline">
+        <div class="region-pill central">
+            <span class="region-name">Central (AIS)</span>
+            <span id="central" class="region-val">--</span>
         </div>
+        <div class="region-pill">
+            <span class="region-name">North</span>
+            <span id="north" class="region-val">--</span>
+        </div>
+        <div class="region-pill">
+            <span class="region-name">South</span>
+            <span id="south" class="region-val">--</span>
+        </div>
+        <div class="region-pill">
+            <span class="region-name">East</span>
+            <span id="east" class="region-val">--</span>
+        </div>
+        <div class="region-pill">
+            <span class="region-name">West</span>
+            <span id="west" class="region-val">--</span>
+        </div>
+    </div>
+
+    <!-- Main Value, Status & Timestamp -->
+    <div class="banner-main">
+        <div class="main-reading">
+            <div id="mainValue" class="value loading">--</div>
+            <div class="unit">µg/m³</div>
+        </div>
+        <div id="status" class="status green-bg">Loading...</div>
+        <div id="updated" class="meta-time">Loading...</div>
     </div>
 </div>
 
@@ -254,19 +252,17 @@ async function loadPM25() {
 
         /* Updated time */
         const date = new Date(item.updatedTimestamp);
-        document.getElementById("updated").textContent = "Updated: " + date.toLocaleString("en-SG", {
-            timeZone: "Asia/Singapore",
-            dateStyle: "medium",
-            timeStyle: "short"
-        });
+        document.getElementById("updated.textContent").textContent = ""; // clear if needed
+        document.getElementById("updated").innerHTML = 
+            "Updated: " + date.toLocaleTimeString("en-SG", { timeZone: "Asia/Singapore", hour: '2-digit', minute: '2-digit' });
 
     } catch (error) {
         console.error("Unable to load PM2.5:", error);
         document.getElementById("mainValue").textContent = "--";
         const status = document.getElementById("status");
-        status.textContent = "Unable to load data";
+        status.textContent = "Error";
         status.className = "status red-bg";
-        document.getElementById("updated").textContent = "Please try again later.";
+        document.getElementById("updated").textContent = "Unavailable";
     }
 }
 
