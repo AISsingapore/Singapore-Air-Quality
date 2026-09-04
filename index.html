@@ -252,8 +252,7 @@ async function loadPM25() {
 
         /* Updated time */
         const date = new Date(item.updatedTimestamp);
-        document.getElementById("updated.textContent").textContent = ""; // clear if needed
-        document.getElementById("updated").innerHTML = 
+        document.getElementById("updated").textContent = 
             "Updated: " + date.toLocaleTimeString("en-SG", { timeZone: "Asia/Singapore", hour: '2-digit', minute: '2-digit' });
 
     } catch (error) {
