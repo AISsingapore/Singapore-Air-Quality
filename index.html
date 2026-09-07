@@ -303,27 +303,17 @@ async function loadPM25() {
     document.getElementById("south").textContent = readings.south;
     document.getElementById("west").textContent = readings.west;
 
-    /* Find highest PM2.5 reading */
+/* Main PM2.5 value - Central region (AIS) */
+const centralValue = readings.central;
 
-    const values = [
-      readings.north,
-      readings.central,
-      readings.east,
-      readings.south,
-      readings.west
-    ].filter(value => typeof value === "number");
+const mainValue = document.getElementById("mainValue");
+mainValue.textContent = centralValue;
+mainValue.className = "value " + getColour(centralValue);
 
-    const highest = Math.max(...values);
-
-    /* Main PM2.5 value */
-
-    const mainValue =
-      document.getElementById("mainValue");
-
-    mainValue.textContent = highest;
-
-    mainValue.className =
-      "value " + getColour(highest);
+/* Status - based on Central region (AIS) */
+const status = document.getElementById("status");
+status.textContent = getStatus(centralValue);
+status.className = "status " + getBackground(centralValue);
 
     /* Status */
 
