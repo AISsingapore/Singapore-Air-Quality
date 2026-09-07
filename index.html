@@ -1,9 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Singapore PM2.5 Banner</title>
+
 <style>
 * {
     box-sizing: border-box;
@@ -147,17 +149,37 @@ body {
 /* =========================
    PM2.5 COLOURS
    ========================= */
-.green { color: #43a047; }
-.green-bg { background: #43a047; }
+.green {
+    color: #43a047;
+}
 
-.yellow { color: #fdd835; }
-.yellow-bg { background: #fdd835; }
+.green-bg {
+    background: #43a047;
+}
 
-.orange { color: #ef6c00; }
-.orange-bg { background: #ef6c00; }
+.yellow {
+    color: #fdd835;
+}
 
-.red { color: #c62828; }
-.red-bg { background: #c62828; }
+.yellow-bg {
+    background: #fdd835;
+}
+
+.orange {
+    color: #ef6c00;
+}
+
+.orange-bg {
+    background: #ef6c00;
+}
+
+.red {
+    color: #c62828;
+}
+
+.red-bg {
+    background: #c62828;
+}
 
 /* Responsive adjustments for mobile screens */
 @media (max-width: 1000px) {
@@ -166,71 +188,103 @@ body {
         align-items: stretch;
         gap: 10px;
     }
+
     .banner-left-group {
         justify-content: space-between;
     }
+
     .meta-time {
         align-items: flex-start;
         text-align: left;
     }
 }
 </style>
+
 </head>
+
 <body>
 
 <div class="banner-card">
-    <!-- Left Group: Title & Big Focus Number -->
-    <div class="banner-left-group">
-        <div class="banner-title-area">
-            <div class="title">Singapore Air Quality</div>
-            <div class="subtitle">Updated every 15 mins</div>
-        </div>
 
-        <div class="banner-main">
-            <div class="main-reading">
-                <div id="mainValue" class="value loading">--</div>
-                <div class="unit">µg/m³</div>
-            </div>
-            <div id="status" class="status green-bg">Loading...</div>
-        </div>
+```
+<!-- Left Group: Title & Central PM2.5 Number -->
+<div class="banner-left-group">
+
+    <div class="banner-title-area">
+        <div class="title">Singapore Air Quality</div>
+        <div class="subtitle">Updated every 15 mins</div>
     </div>
 
-    <!-- Middle: Regional Pills (Central highlighted first) -->
-    <div class="regions-inline">
-        <div class="region-pill central">
-            <span class="region-name">Central (AIS):</span>
-            <span id="central" class="region-val">--</span>
+    <div class="banner-main">
+
+        <div class="main-reading">
+            <div id="mainValue" class="value loading">--</div>
+            <div class="unit">µg/m³</div>
         </div>
-        <div class="region-pill">
-            <span class="region-name">North:</span>
-            <span id="north" class="region-val">--</span>
+
+        <div id="status" class="status green-bg">
+            Loading...
         </div>
-        <div class="region-pill">
-            <span class="region-name">South:</span>
-            <span id="south" class="region-val">--</span>
-        </div>
-        <div class="region-pill">
-            <span class="region-name">East:</span>
-            <span id="east" class="region-val">--</span>
-        </div>
-        <div class="region-pill">
-            <span class="region-name">West:</span>
-            <span id="west" class="region-val">--</span>
-        </div>
+
     </div>
 
-    <!-- Right: Timestamp & Source -->
-    <div class="meta-time">
-        <div id="updated">Loading...</div>
-        <div class="source">Source: <a href="https://www.haze.gov.sg/" target="_blank" rel="noopener noreferrer">haze.gov.sg</a></div>
+</div>
+
+<!-- Regional Readings -->
+<div class="regions-inline">
+
+    <div class="region-pill central">
+        <span class="region-name">Central (AIS):</span>
+        <span id="central" class="region-val">--</span>
     </div>
+
+    <div class="region-pill">
+        <span class="region-name">North:</span>
+        <span id="north" class="region-val">--</span>
+    </div>
+
+    <div class="region-pill">
+        <span class="region-name">South:</span>
+        <span id="south" class="region-val">--</span>
+    </div>
+
+    <div class="region-pill">
+        <span class="region-name">East:</span>
+        <span id="east" class="region-val">--</span>
+    </div>
+
+    <div class="region-pill">
+        <span class="region-name">West:</span>
+        <span id="west" class="region-val">--</span>
+    </div>
+
+</div>
+
+<!-- Timestamp & Source -->
+<div class="meta-time">
+
+    <div id="updated">Loading...</div>
+
+    <div class="source">
+        Source:
+        <a href="https://www.haze.gov.sg/" target="_blank" rel="noopener noreferrer">
+            haze.gov.sg
+        </a>
+    </div>
+
+</div>
+```
+
 </div>
 
 <script>
+
 async function loadPM25() {
+
     const API_URL = "https://api-open.data.gov.sg/v2/real-time/api/pm25";
 
     try {
+
         const response = await fetch(API_URL, {
             method: "GET",
             cache: "no-store"
@@ -241,75 +295,135 @@ async function loadPM25() {
         }
 
         const result = await response.json();
+
         const item = result.data.items[0];
+
         const readings = item.readings.pm25_one_hourly;
 
         /* Display regional readings */
+
         document.getElementById("north").textContent = readings.north;
         document.getElementById("central").textContent = readings.central;
         document.getElementById("east").textContent = readings.east;
         document.getElementById("south").textContent = readings.south;
         document.getElementById("west").textContent = readings.west;
 
-        /* Find highest PM2.5 reading */
-        const values = [
-            readings.north,
-            readings.central,
-            readings.east,
-            readings.south,
-            readings.west
-        ].filter(value => typeof value === "number");
 
-        const highest = Math.max(...values);
+        /*
+         * CENTRAL IS THE MAIN READING
+         *
+         * The large number now matches
+         * Central (AIS) exactly.
+         */
+
+        const centralValue = readings.central;
+
 
         /* Main PM2.5 value */
-        const mainValue = document.getElementById("mainValue");
-        mainValue.textContent = highest;
-        mainValue.className = "value " + getColour(highest);
 
-        /* Status */
+        const mainValue = document.getElementById("mainValue");
+
+        mainValue.textContent = centralValue;
+
+        mainValue.className = "value " + getColour(centralValue);
+
+
+        /* Status is also based on Central */
+
         const status = document.getElementById("status");
-        status.textContent = getStatus(highest);
-        status.className = "status " + getBackground(highest);
+
+        status.textContent = getStatus(centralValue);
+
+        status.className = "status " + getBackground(centralValue);
+
 
         /* Updated time */
-        const date = new Date(item.updatedTimestamp);
-        document.getElementById("updated").textContent = 
-            "Updated: " + date.toLocaleTimeString("en-SG", { timeZone: "Asia/Singapore", hour: '2-digit', minute: '2-digit' });
 
-    } catch (error) {
-        console.error("Unable to load PM2.5:", error);
-        document.getElementById("mainValue").textContent = "--";
-        const status = document.getElementById("status");
-        status.textContent = "Error";
-        status.className = "status red-bg";
-        document.getElementById("updated").textContent = "Unavailable";
+        const date = new Date(item.updatedTimestamp);
+
+        document.getElementById("updated").textContent =
+            "Updated: " +
+            date.toLocaleTimeString("en-SG", {
+                timeZone: "Asia/Singapore",
+                hour: "2-digit",
+                minute: "2-digit"
+            });
+
     }
+
+    catch (error) {
+
+        console.error("Unable to load PM2.5:", error);
+
+        document.getElementById("mainValue").textContent = "--";
+
+        const status = document.getElementById("status");
+
+        status.textContent = "Error";
+
+        status.className = "status red-bg";
+
+        document.getElementById("updated").textContent = "Unavailable";
+
+    }
+
 }
+
+
+/* PM2.5 status categories */
 
 function getStatus(value) {
+
     if (value <= 55) return "Normal";
+
     if (value <= 150) return "Elevated";
+
     if (value <= 250) return "High";
+
     return "Very High";
+
 }
+
+
+/* Number colour */
 
 function getColour(value) {
+
     if (value <= 55) return "green";
+
     if (value <= 150) return "yellow";
+
     if (value <= 250) return "orange";
+
     return "red";
+
 }
+
+
+/* Status background colour */
 
 function getBackground(value) {
+
     if (value <= 55) return "green-bg";
+
     if (value <= 150) return "yellow-bg";
+
     if (value <= 250) return "orange-bg";
+
     return "red-bg";
+
 }
 
+
+/* Load immediately */
+
 loadPM25();
+
+
+/* Refresh every 15 minutes */
+
 setInterval(loadPM25, 15 * 60 * 1000);
+
 </script>
 
 </body>
