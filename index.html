@@ -7,154 +7,196 @@
 
 <style>
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: transparent;
-    color: #444;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: transparent;
+  color: #444;
 }
 
 .banner-card {
-    background: #FFFFFF;
-    border-radius: 12px;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    width: 100%;
-    max-width: 1200px;
-    margin: auto;
-    flex-wrap: wrap;
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 10px 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  flex-wrap: wrap;
 }
 
+/* Left Group: Title & Main Big Number */
 .banner-left-group {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .banner-title-area {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .title {
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 1.2;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .subtitle {
-    color: #777;
-    font-size: 10px;
-    line-height: 1.2;
-    margin-top: 2px;
+  color: #777;
+  font-size: 10px;
+  line-height: 1.2;
+  margin-top: 2px;
 }
 
+/* Main Highlight & Status */
 .banner-main {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .main-reading {
-    display: flex;
-    align-items: baseline;
-    gap: 3px;
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
 }
 
 .value {
-    font-size: 32px;
-    font-weight: bold;
-    line-height: 1;
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 1;
 }
 
 .unit {
-    font-size: 10px;
-    color: #777;
+  font-size: 10px;
+  color: #777;
 }
 
 .status {
-    padding: 5px 14px;
-    border-radius: 14px;
-    color: white;
-    font-weight: bold;
-    font-size: 12px;
+  padding: 5px 14px;
+  border-radius: 14px;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
 }
 
+/* Middle: Key Regions Inline */
 .regions-inline {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .region-pill {
-    padding: 5px 10px;
-    border-radius: 8px;
-    background: #f5f5f5;
-    font-size: 12px;
-    display: flex;
-    gap: 6px;
-    align-items: center;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: #f5f5f5;
+  font-size: 12px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
 }
 
 .region-pill.central {
-    background: #dbe442;
-    color: #000;
-    font-weight: bold;
+  background: #dbe442;
+  color: #000;
+  font-weight: bold;
 }
 
 .region-name {
-    font-weight: 600;
-    font-size: 11px;
+  font-weight: 600;
+  font-size: 11px;
 }
 
 .region-val {
-    font-weight: bold;
-    font-size: 12px;
+  font-weight: bold;
+  font-size: 12px;
 }
 
+/* Right: Timestamp & Source */
 .meta-time {
-    font-size: 10px;
-    color: #888;
-    text-align: right;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    line-height: 1.3;
+  font-size: 10px;
+  color: #888;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.3;
 }
 
 .source a {
-    color: #888;
-    text-decoration: underline;
+  color: #888;
+  text-decoration: underline;
 }
 
 .loading {
-    color: #777;
+  color: #777;
 }
 
+/* =========================
+   PM2.5 COLOURS
+   ========================= */
+
+.green {
+  color: #43a047;
+}
+
+.green-bg {
+  background: #43a047;
+}
+
+.yellow {
+  color: #fdd835;
+}
+
+.yellow-bg {
+  background: #fdd835;
+}
+
+.orange {
+  color: #ef6c00;
+}
+
+.orange-bg {
+  background: #ef6c00;
+}
+
+.red {
+  color: #c62828;
+}
+
+.red-bg {
+  background: #c62828;
+}
+
+/* Responsive adjustments for mobile screens */
 @media (max-width: 1000px) {
-    .banner-card {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 10px;
-    }
+  .banner-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
 
-    .banner-left-group {
-        justify-content: space-between;
-    }
+  .banner-left-group {
+    justify-content: space-between;
+  }
 
-    .meta-time {
-        align-items: flex-start;
-        text-align: left;
-    }
+  .meta-time {
+    align-items: flex-start;
+    text-align: left;
+  }
 }
 </style>
 </head>
@@ -163,216 +205,213 @@ body {
 
 <div class="banner-card">
 
-    <div class="banner-left-group">
+  <!-- Left Group: Title & Big Focus Number -->
+  <div class="banner-left-group">
 
-        <div class="banner-title-area">
-            <div class="title">Singapore Air Quality</div>
-            <div class="subtitle">Updated every 15 mins</div>
-        </div>
+    <div class="banner-title-area">
+      <div class="title">Singapore Air Quality</div>
+      <div class="subtitle">Updated every 15 mins</div>
+    </div>
 
-        <div class="banner-main">
+    <div class="banner-main">
 
-            <div class="main-reading">
-                <div id="mainValue" class="value loading">--</div>
-                <div class="unit">µg/m³</div>
-            </div>
+      <div class="main-reading">
+        <div id="mainValue" class="value loading">--</div>
+        <div class="unit">µg/m³</div>
+      </div>
 
-            <div id="status" class="status" style="background:#43a047;">
-                Loading...
-            </div>
-
-        </div>
+      <div id="status" class="status green-bg">Loading...</div>
 
     </div>
 
-    <div class="regions-inline">
+  </div>
 
-        <div class="region-pill central">
-            <span class="region-name">Central (AIS):</span>
-            <span id="central" class="region-val">--</span>
-        </div>
+  <!-- Middle: Regional Pills (Central highlighted first) -->
+  <div class="regions-inline">
 
-        <div class="region-pill">
-            <span class="region-name">North:</span>
-            <span id="north" class="region-val">--</span>
-        </div>
-
-        <div class="region-pill">
-            <span class="region-name">South:</span>
-            <span id="south" class="region-val">--</span>
-        </div>
-
-        <div class="region-pill">
-            <span class="region-name">East:</span>
-            <span id="east" class="region-val">--</span>
-        </div>
-
-        <div class="region-pill">
-            <span class="region-name">West:</span>
-            <span id="west" class="region-val">--</span>
-        </div>
-
+    <div class="region-pill central">
+      <span class="region-name">Central (AIS):</span>
+      <span id="central" class="region-val">--</span>
     </div>
 
-    <div class="meta-time">
-
-        <div id="updated">Loading...</div>
-
-        <div class="source">
-            Source:
-            <a href="https://www.haze.gov.sg/" target="_blank" rel="noopener noreferrer">
-                haze.gov.sg
-            </a>
-        </div>
-
+    <div class="region-pill">
+      <span class="region-name">North:</span>
+      <span id="north" class="region-val">--</span>
     </div>
+
+    <div class="region-pill">
+      <span class="region-name">South:</span>
+      <span id="south" class="region-val">--</span>
+    </div>
+
+    <div class="region-pill">
+      <span class="region-name">East:</span>
+      <span id="east" class="region-val">--</span>
+    </div>
+
+    <div class="region-pill">
+      <span class="region-name">West:</span>
+      <span id="west" class="region-val">--</span>
+    </div>
+
+  </div>
+
+  <!-- Right: Timestamp & Source -->
+  <div class="meta-time">
+
+    <div id="updated">Loading...</div>
+
+    <div class="source">
+      Source:
+      <a href="https://www.haze.gov.sg/" target="_blank" rel="noopener noreferrer">
+        haze.gov.sg
+      </a>
+    </div>
+
+  </div>
 
 </div>
 
 <script>
-
 async function loadPM25() {
 
-    const API_URL = "https://api-open.data.gov.sg/v2/real-time/api/pm25";
+  const API_URL =
+    "https://api-open.data.gov.sg/v2/real-time/api/pm25";
 
-    try {
+  try {
 
-        const response = await fetch(API_URL, {
-            method: "GET",
-            cache: "no-store"
-        });
+    const response = await fetch(API_URL, {
+      method: "GET",
+      cache: "no-store"
+    });
 
-        if (!response.ok) {
-            throw new Error("HTTP Error: " + response.status);
-        }
-
-        const result = await response.json();
-
-        const item = result.data.items[0];
-
-        const readings = item.readings.pm25_one_hourly;
-
-
-        /* Regional readings */
-
-        document.getElementById("north").textContent = readings.north;
-        document.getElementById("central").textContent = readings.central;
-        document.getElementById("east").textContent = readings.east;
-        document.getElementById("south").textContent = readings.south;
-        document.getElementById("west").textContent = readings.west;
-
-
-        /*
-         * CENTRAL REGION IS THE MAIN AIS READING
-         */
-
-        const centralValue = readings.central;
-
-
-        /* Main number matches Central (AIS) */
-
-        const mainValue = document.getElementById("mainValue");
-
-        mainValue.textContent = centralValue;
-
-        mainValue.className = "value " + getColour(centralValue);
-
-
-        /* Status matches Central (AIS) */
-
-        const status = document.getElementById("status");
-
-        status.textContent = getStatus(centralValue);
-
-        status.style.background = getBackground(centralValue);
-
-
-        /* Updated time */
-
-        const date = new Date(item.updatedTimestamp);
-
-        document.getElementById("updated").textContent =
-            "Updated: " +
-            date.toLocaleTimeString("en-SG", {
-                timeZone: "Asia/Singapore",
-                hour: "2-digit",
-                minute: "2-digit"
-            });
-
+    if (!response.ok) {
+      throw new Error("HTTP Error: " + response.status);
     }
 
-    catch (error) {
+    const result = await response.json();
 
-        console.error("Unable to load PM2.5:", error);
+    const item = result.data.items[0];
 
-        document.getElementById("mainValue").textContent = "--";
+    const readings = item.readings.pm25_one_hourly;
 
-        const status = document.getElementById("status");
+    /* Display regional readings */
 
-        status.textContent = "Error";
+    document.getElementById("north").textContent = readings.north;
+    document.getElementById("central").textContent = readings.central;
+    document.getElementById("east").textContent = readings.east;
+    document.getElementById("south").textContent = readings.south;
+    document.getElementById("west").textContent = readings.west;
 
-        status.style.background = "#c62828";
+    /* Find highest PM2.5 reading */
 
-        document.getElementById("updated").textContent = "Unavailable";
+    const values = [
+      readings.north,
+      readings.central,
+      readings.east,
+      readings.south,
+      readings.west
+    ].filter(value => typeof value === "number");
 
-    }
+    const highest = Math.max(...values);
+
+    /* Main PM2.5 value */
+
+    const mainValue =
+      document.getElementById("mainValue");
+
+    mainValue.textContent = highest;
+
+    mainValue.className =
+      "value " + getColour(highest);
+
+    /* Status */
+
+    const status =
+      document.getElementById("status");
+
+    status.textContent =
+      getStatus(highest);
+
+    status.className =
+      "status " + getBackground(highest);
+
+    /* Updated time */
+
+    const date =
+      new Date(item.updatedTimestamp);
+
+    document.getElementById("updated").textContent =
+      "Updated: " +
+      date.toLocaleTimeString("en-SG", {
+        timeZone: "Asia/Singapore",
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+
+  } catch (error) {
+
+    console.error(
+      "Unable to load PM2.5:",
+      error
+    );
+
+    document.getElementById("mainValue").textContent =
+      "--";
+
+    const status =
+      document.getElementById("status");
+
+    status.textContent =
+      "Error";
+
+    status.className =
+      "status red-bg";
+
+    document.getElementById("updated").textContent =
+      "Unavailable";
+  }
 }
-
-
-/* Status */
 
 function getStatus(value) {
 
-    if (value <= 55) return "Normal";
+  if (value <= 55) return "Normal";
 
-    if (value <= 150) return "Elevated";
+  if (value <= 150) return "Elevated";
 
-    if (value <= 250) return "High";
+  if (value <= 250) return "High";
 
-    return "Very High";
-
+  return "Very High";
 }
-
-
-/* Number colour */
 
 function getColour(value) {
 
-    if (value <= 55) return "green";
+  if (value <= 55) return "green";
 
-    if (value <= 150) return "yellow";
+  if (value <= 150) return "yellow";
 
-    if (value <= 250) return "orange";
+  if (value <= 250) return "orange";
 
-    return "red";
-
+  return "red";
 }
-
-
-/* Status background */
 
 function getBackground(value) {
 
-    if (value <= 55) return "#43a047";
+  if (value <= 55) return "green-bg";
 
-    if (value <= 150) return "#fdd835";
+  if (value <= 150) return "yellow-bg";
 
-    if (value <= 250) return "#ef6c00";
+  if (value <= 250) return "orange-bg";
 
-    return "#c62828";
-
+  return "red-bg";
 }
-
-
-/* Load immediately */
 
 loadPM25();
 
-
-/* Refresh every 15 minutes */
-
-setInterval(loadPM25, 15 * 60 * 1000);
-
+setInterval(
+  loadPM25,
+  15 * 60 * 1000
+);
 </script>
 
 </body>
