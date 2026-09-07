@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -23,7 +22,6 @@ body {
     background: #FFFFFF;
     border-radius: 12px;
     padding: 10px 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -34,7 +32,6 @@ body {
     flex-wrap: wrap;
 }
 
-/* Left Group: Title & Main Big Number */
 .banner-left-group {
     display: flex;
     align-items: center;
@@ -60,7 +57,6 @@ body {
     margin-top: 2px;
 }
 
-/* Main Highlight & Status */
 .banner-main {
     display: flex;
     align-items: center;
@@ -92,7 +88,6 @@ body {
     font-size: 12px;
 }
 
-/* Middle: Key Regions Inline */
 .regions-inline {
     display: flex;
     gap: 8px;
@@ -126,7 +121,6 @@ body {
     font-size: 12px;
 }
 
-/* Right: Timestamp & Source */
 .meta-time {
     font-size: 10px;
     color: #888;
@@ -146,42 +140,6 @@ body {
     color: #777;
 }
 
-/* =========================
-   PM2.5 COLOURS
-   ========================= */
-.green {
-    color: #43a047;
-}
-
-.green-bg {
-    background: #43a047;
-}
-
-.yellow {
-    color: #fdd835;
-}
-
-.yellow-bg {
-    background: #fdd835;
-}
-
-.orange {
-    color: #ef6c00;
-}
-
-.orange-bg {
-    background: #ef6c00;
-}
-
-.red {
-    color: #c62828;
-}
-
-.red-bg {
-    background: #c62828;
-}
-
-/* Responsive adjustments for mobile screens */
 @media (max-width: 1000px) {
     .banner-card {
         flex-direction: column;
@@ -199,81 +157,75 @@ body {
     }
 }
 </style>
-
 </head>
 
 <body>
 
 <div class="banner-card">
 
-```
-<!-- Left Group: Title & Central PM2.5 Number -->
-<div class="banner-left-group">
+    <div class="banner-left-group">
 
-    <div class="banner-title-area">
-        <div class="title">Singapore Air Quality</div>
-        <div class="subtitle">Updated every 15 mins</div>
-    </div>
-
-    <div class="banner-main">
-
-        <div class="main-reading">
-            <div id="mainValue" class="value loading">--</div>
-            <div class="unit">µg/m³</div>
+        <div class="banner-title-area">
+            <div class="title">Singapore Air Quality</div>
+            <div class="subtitle">Updated every 15 mins</div>
         </div>
 
-        <div id="status" class="status green-bg">
-            Loading...
+        <div class="banner-main">
+
+            <div class="main-reading">
+                <div id="mainValue" class="value loading">--</div>
+                <div class="unit">µg/m³</div>
+            </div>
+
+            <div id="status" class="status" style="background:#43a047;">
+                Loading...
+            </div>
+
         </div>
 
     </div>
 
-</div>
+    <div class="regions-inline">
 
-<!-- Regional Readings -->
-<div class="regions-inline">
+        <div class="region-pill central">
+            <span class="region-name">Central (AIS):</span>
+            <span id="central" class="region-val">--</span>
+        </div>
 
-    <div class="region-pill central">
-        <span class="region-name">Central (AIS):</span>
-        <span id="central" class="region-val">--</span>
+        <div class="region-pill">
+            <span class="region-name">North:</span>
+            <span id="north" class="region-val">--</span>
+        </div>
+
+        <div class="region-pill">
+            <span class="region-name">South:</span>
+            <span id="south" class="region-val">--</span>
+        </div>
+
+        <div class="region-pill">
+            <span class="region-name">East:</span>
+            <span id="east" class="region-val">--</span>
+        </div>
+
+        <div class="region-pill">
+            <span class="region-name">West:</span>
+            <span id="west" class="region-val">--</span>
+        </div>
+
     </div>
 
-    <div class="region-pill">
-        <span class="region-name">North:</span>
-        <span id="north" class="region-val">--</span>
+    <div class="meta-time">
+
+        <div id="updated">Loading...</div>
+
+        <div class="source">
+            Source:
+            <a href="https://www.haze.gov.sg/" target="_blank" rel="noopener noreferrer">
+                haze.gov.sg
+            </a>
+        </div>
+
     </div>
-
-    <div class="region-pill">
-        <span class="region-name">South:</span>
-        <span id="south" class="region-val">--</span>
-    </div>
-
-    <div class="region-pill">
-        <span class="region-name">East:</span>
-        <span id="east" class="region-val">--</span>
-    </div>
-
-    <div class="region-pill">
-        <span class="region-name">West:</span>
-        <span id="west" class="region-val">--</span>
-    </div>
-
-</div>
-
-<!-- Timestamp & Source -->
-<div class="meta-time">
-
-    <div id="updated">Loading...</div>
-
-    <div class="source">
-        Source:
-        <a href="https://www.haze.gov.sg/" target="_blank" rel="noopener noreferrer">
-            haze.gov.sg
-        </a>
-    </div>
-
-</div>
-```
 
 </div>
 
@@ -300,7 +252,8 @@ async function loadPM25() {
 
         const readings = item.readings.pm25_one_hourly;
 
-        /* Display regional readings */
+
+        /* Regional readings */
 
         document.getElementById("north").textContent = readings.north;
         document.getElementById("central").textContent = readings.central;
@@ -310,16 +263,13 @@ async function loadPM25() {
 
 
         /*
-         * CENTRAL IS THE MAIN READING
-         *
-         * The large number now matches
-         * Central (AIS) exactly.
+         * CENTRAL REGION IS THE MAIN AIS READING
          */
 
         const centralValue = readings.central;
 
 
-        /* Main PM2.5 value */
+        /* Main number matches Central (AIS) */
 
         const mainValue = document.getElementById("mainValue");
 
@@ -328,13 +278,13 @@ async function loadPM25() {
         mainValue.className = "value " + getColour(centralValue);
 
 
-        /* Status is also based on Central */
+        /* Status matches Central (AIS) */
 
         const status = document.getElementById("status");
 
         status.textContent = getStatus(centralValue);
 
-        status.className = "status " + getBackground(centralValue);
+        status.style.background = getBackground(centralValue);
 
 
         /* Updated time */
@@ -361,16 +311,15 @@ async function loadPM25() {
 
         status.textContent = "Error";
 
-        status.className = "status red-bg";
+        status.style.background = "#c62828";
 
         document.getElementById("updated").textContent = "Unavailable";
 
     }
-
 }
 
 
-/* PM2.5 status categories */
+/* Status */
 
 function getStatus(value) {
 
@@ -400,17 +349,17 @@ function getColour(value) {
 }
 
 
-/* Status background colour */
+/* Status background */
 
 function getBackground(value) {
 
-    if (value <= 55) return "green-bg";
+    if (value <= 55) return "#43a047";
 
-    if (value <= 150) return "yellow-bg";
+    if (value <= 150) return "#fdd835";
 
-    if (value <= 250) return "orange-bg";
+    if (value <= 250) return "#ef6c00";
 
-    return "red-bg";
+    return "#c62828";
 
 }
 
