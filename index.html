@@ -22,7 +22,6 @@ body {
   background: #FFFFFF;
   border-radius: 12px;
   padding: 10px 20px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -33,7 +32,6 @@ body {
   flex-wrap: wrap;
 }
 
-/* Left Group: Title & Main Big Number */
 .banner-left-group {
   display: flex;
   align-items: center;
@@ -59,7 +57,6 @@ body {
   margin-top: 2px;
 }
 
-/* Main Highlight & Status */
 .banner-main {
   display: flex;
   align-items: center;
@@ -91,7 +88,6 @@ body {
   font-size: 12px;
 }
 
-/* Middle: Key Regions Inline */
 .regions-inline {
   display: flex;
   gap: 8px;
@@ -125,7 +121,6 @@ body {
   font-size: 12px;
 }
 
-/* Right: Timestamp & Source */
 .meta-time {
   font-size: 10px;
   color: #888;
@@ -144,10 +139,6 @@ body {
 .loading {
   color: #777;
 }
-
-/* =========================
-   PM2.5 COLOURS
-   ========================= */
 
 .green {
   color: #43a047;
@@ -181,7 +172,6 @@ body {
   background: #c62828;
 }
 
-/* Responsive adjustments for mobile screens */
 @media (max-width: 1000px) {
   .banner-card {
     flex-direction: column;
@@ -205,7 +195,6 @@ body {
 
 <div class="banner-card">
 
-  <!-- Left Group: Title & Big Focus Number -->
   <div class="banner-left-group">
 
     <div class="banner-title-area">
@@ -220,13 +209,14 @@ body {
         <div class="unit">µg/m³</div>
       </div>
 
-      <div id="status" class="status green-bg">Loading...</div>
+      <div id="status" class="status green-bg">
+        Loading...
+      </div>
 
     </div>
 
   </div>
 
-  <!-- Middle: Regional Pills (Central highlighted first) -->
   <div class="regions-inline">
 
     <div class="region-pill central">
@@ -256,7 +246,6 @@ body {
 
   </div>
 
-  <!-- Right: Timestamp & Source -->
   <div class="meta-time">
 
     <div id="updated">Loading...</div>
@@ -273,10 +262,10 @@ body {
 </div>
 
 <script>
+
 async function loadPM25() {
 
-  const API_URL =
-    "https://api-open.data.gov.sg/v2/real-time/api/pm25";
+  const API_URL = "https://api-open.data.gov.sg/v2/real-time/api/pm25";
 
   try {
 
@@ -295,73 +284,79 @@ async function loadPM25() {
 
     const readings = item.readings.pm25_one_hourly;
 
+
     /* Display regional readings */
 
     document.getElementById("north").textContent = readings.north;
+
     document.getElementById("central").textContent = readings.central;
+
     document.getElementById("east").textContent = readings.east;
+
     document.getElementById("south").textContent = readings.south;
+
     document.getElementById("west").textContent = readings.west;
 
-/* Main PM2.5 value - Central region (AIS) */
-const centralValue = readings.central;
 
-const mainValue = document.getElementById("mainValue");
-mainValue.textContent = centralValue;
-mainValue.className = "value " + getColour(centralValue);
+    /*
+     * CENTRAL REGION IS THE MAIN AIS READING
+     */
 
-/* Status - based on Central region (AIS) */
-const status = document.getElementById("status");
-status.textContent = getStatus(centralValue);
-status.className = "status " + getBackground(centralValue);
+    const centralValue = readings.central;
 
-    /* Status */
 
-    const status =
-      document.getElementById("status");
+    /* Main number matches Central (AIS) */
 
-    status.textContent =
-      getStatus(highest);
+    const mainValue = document.getElementById("mainValue");
 
-    status.className =
-      "status " + getBackground(highest);
+    mainValue.textContent = centralValue;
+
+    mainValue.className = "value " + getColour(centralValue);
+
+
+    /* Status matches Central (AIS) */
+
+    const status = document.getElementById("status");
+
+    status.textContent = getStatus(centralValue);
+
+    status.className = "status " + getBackground(centralValue);
+
 
     /* Updated time */
 
-    const date =
-      new Date(item.updatedTimestamp);
+    const date = new Date(item.updatedTimestamp);
 
     document.getElementById("updated").textContent =
       "Updated: " +
       date.toLocaleTimeString("en-SG", {
         timeZone: "Asia/Singapore",
-        hour: '2-digit',
-        minute: '2-digit'
+        hour: "2-digit",
+        minute: "2-digit"
       });
 
-  } catch (error) {
-
-    console.error(
-      "Unable to load PM2.5:",
-      error
-    );
-
-    document.getElementById("mainValue").textContent =
-      "--";
-
-    const status =
-      document.getElementById("status");
-
-    status.textContent =
-      "Error";
-
-    status.className =
-      "status red-bg";
-
-    document.getElementById("updated").textContent =
-      "Unavailable";
   }
+
+  catch (error) {
+
+    console.error("Unable to load PM2.5:", error);
+
+    document.getElementById("mainValue").textContent = "--";
+
+    const status = document.getElementById("status");
+
+    status.textContent = "Error";
+
+    status.className = "status red-bg";
+
+    document.getElementById("updated").textContent = "Unavailable";
+
+  }
+
 }
+
+
+/* PM2.5 status */
 
 function getStatus(value) {
 
@@ -372,7 +367,11 @@ function getStatus(value) {
   if (value <= 250) return "High";
 
   return "Very High";
+
 }
+
+
+/* Main number colour */
 
 function getColour(value) {
 
@@ -383,7 +382,11 @@ function getColour(value) {
   if (value <= 250) return "orange";
 
   return "red";
+
 }
+
+
+/* Status background colour */
 
 function getBackground(value) {
 
@@ -394,14 +397,19 @@ function getBackground(value) {
   if (value <= 250) return "orange-bg";
 
   return "red-bg";
+
 }
+
+
+/* Load immediately */
 
 loadPM25();
 
-setInterval(
-  loadPM25,
-  15 * 60 * 1000
-);
+
+/* Refresh every 15 minutes */
+
+setInterval(loadPM25, 15 * 60 * 1000);
+
 </script>
 
 </body>
